@@ -8,7 +8,7 @@
 
 // Define the OscArg as a variant of possible OSC types
 using OscArg =
-	std::variant<int32_t, float, std::string, std::vector<uint8_t>, uint64_t>;
+	std::variant<int32_t, float, std::string, std::vector<uint8_t>, uint32_t>;
 
 class ZoscMessage {
   public:
@@ -32,5 +32,8 @@ class ZoscMessage {
 	std::string _address;           // OSC address pattern
 	std::vector<OscArg> _arguments; // Arguments of the message
 };
+
+// Overload operator<< for the OscArg variant
+std::ostream& operator<<(std::ostream &os, const OscArg &arg);
 
 #endif // ZOSC_MESSAGE_HPP

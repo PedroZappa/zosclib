@@ -2,6 +2,9 @@
 #include <arpa/inet.h>
 #include <cstring>
 #include <sstream>
+#include <variant>
+#include <list>
+#include <deque>
 
 /* ************************************************************************** */
 /*                                Constructors                                */
@@ -70,7 +73,7 @@ std::string ZoscMessage::serialize() const {
 			oss.put('s'); // String type tag
 		} else if (std::holds_alternative<std::vector<uint8_t>>(arg)) {
 			oss.put('b'); // Blob type tag
-		} else if (std::holds_alternative<uint64_t>(arg)) {
+		} else if (std::holds_alternative<uint32_t>(arg)) {
 			oss.put('t'); // Time tag type
 		}
 	}
@@ -170,7 +173,7 @@ ZoscMessage ZoscMessage::deserialize(const std::string &data) {
 			pos = (stringEnd + 4) & ~3; // Align to 4 bytes
 		} else if (type == 'b') {
 			// Extract Blob
-			if (pos + sizeof(int32_t) > data.size())
+			if (pos + sizeof(uint32_t) > data.size())
 				throw std::runtime_error("Malformed OSC message: Not enough "
 										 "data for blob size.");
 			int32_t size;
@@ -189,4 +192,40 @@ ZoscMessage ZoscMessage::deserialize(const std::string &data) {
 	}
 
 	return (message);
+}
+
+/* ************************************************************************** */
+/*                                 Operators                                  */
+/* ************************************************************************** */
+
+/// @brief Overload operator<< for the OscArg variant
+/// @param os The output stream
+/// @param arg The argument to print
+std::ostream &operator<<(std::ostream &os, const OscArg &arg) {
+    std::visit([&os](const auto& value) {
+        using T = std::decay_t<decltype(value)>;
+        if constexpr (std::is_same_v<T, std::vector<uint8_t>> ||
+                     std::is_same_v<T, std::vector<int32_t>> ||
+                     std::is_same_v<T, std::vector<float>> ||
+                     std::is_same_v<T, std::vector<double>> ||
+                     std::is_same_v<T, std::deque<uint8_t>> ||
+                     std::is_same_v<T, std::list<uint8_t>>) {
+            // Generic container handling
+            os << "[";
+            bool first = true;
+            for (const auto &elem : value) {
+                if (!first) os << ", ";
+                if constexpr (std::is_same_v<std::decay_t<decltype(elem)>, uint8_t>) {
+                    os << static_cast<int>(elem); // Cast uint8_t to int for readable output
+                } else {
+                    os << elem;
+                }
+                first = false;
+            }
+            os << "]";
+        } else {
+            os << value; // Default case for other types
+        }
+    }, arg);
+    return os;
 }
