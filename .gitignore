@@ -25,6 +25,7 @@
 *.la
 *.a
 *.lib
+compile_commands.json
 
 # Executables
 *.exe
