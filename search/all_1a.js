@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🚀_0',['&lt;strong&gt;Features&lt;/strong&gt; 🚀',['../index.html#autotoc_md2',1,'']]]
+  ['🚀_0',['Features 🚀',['../index.html#autotoc_md2',1,'']]]
 ];

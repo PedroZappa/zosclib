@@ -20,8 +20,8 @@ var searchData=
   ['bluhb_17',['BLUHB',['../ansi_8h.html#aaf3a6b1d1acbdd2d9efdb841efda0fe3',1,'ansi.h']]],
   ['bmag_18',['BMAG',['../ansi_8h.html#af1bdc3f8928aa1589ef44e3578a09464',1,'ansi.h']]],
   ['bred_19',['BRED',['../ansi_8h.html#a2adb4c9e293ac446897ccfac5a52d6c2',1,'ansi.h']]],
-  ['building_20zosc_20strong_20',['&lt;strong&gt;Building Zosc&lt;/strong&gt;',['../index.html#autotoc_md10',1,'']]],
-  ['bundles_20with_20a_20simple_20and_20intuitive_20api_21',['&lt;strong&gt;zosc&lt;/strong&gt; is a C++ library for working with the &lt;strong&gt;Open Sound Control&lt;/strong&gt; (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.',['../index.html#autotoc_md1',1,'']]],
+  ['building_20zosc_20',['Building Zosc',['../index.html#autotoc_md10',1,'']]],
+  ['bundles_20with_20a_20simple_20and_20intuitive_20api_21',['zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.',['../index.html#autotoc_md1',1,'']]],
   ['bwht_22',['BWHT',['../ansi_8h.html#ae528cad0e6c76be71eb66776599ec5d9',1,'ansi.h']]],
   ['byel_23',['BYEL',['../ansi_8h.html#a9b526756196d7c0efa31bc8fe4e5f138',1,'ansi.h']]]
 ];

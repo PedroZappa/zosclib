@@ -6,7 +6,7 @@ var searchData=
   ['ugrn_3',['UGRN',['../ansi_8h.html#a883c26c4df71bdfbd17da690397dcd78',1,'ansi.h']]],
   ['umag_4',['UMAG',['../ansi_8h.html#a78189961ae9153aae760057d0d9cd8c1',1,'ansi.h']]],
   ['ured_5',['URED',['../ansi_8h.html#aba3f692c7c1eaca01388c4f6abf2c32d',1,'ansi.h']]],
-  ['usage_20strong_20🔧_6',['&lt;strong&gt;Usage&lt;/strong&gt; 🔧',['../index.html#autotoc_md8',1,'']]],
+  ['usage_20🔧_6',['Usage 🔧',['../index.html#autotoc_md8',1,'']]],
   ['uwht_7',['UWHT',['../ansi_8h.html#a17f899635892fd90fed3c4fdc18ff9c5',1,'ansi.h']]],
   ['uyel_8',['UYEL',['../ansi_8h.html#a724077571b3286c4f8ca7e659ed13253',1,'ansi.h']]]
 ];

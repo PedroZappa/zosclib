@@ -25,16 +25,16 @@
 var NAVTREE =
 [
   [ "zosc", "index.html", [
-    [ "<strong>zosc</strong> is a C++ library for working with the <strong>Open Sound Control</strong> (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.", "index.html#autotoc_md1", null ],
-    [ "<strong>Features</strong> 🚀", "index.html#autotoc_md2", [
-      [ "<strong>ZoscMessage</strong>", "index.html#autotoc_md3", null ],
-      [ "<strong>ZoscBundle</strong>", "index.html#autotoc_md4", null ],
-      [ "<strong>ZoscReceiver</strong>", "index.html#autotoc_md5", null ],
-      [ "<strong>ZoscSender</strong>", "index.html#autotoc_md6", null ]
+    [ "zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.", "index.html#autotoc_md1", null ],
+    [ "Features 🚀", "index.html#autotoc_md2", [
+      [ "ZoscMessage", "index.html#autotoc_md3", null ],
+      [ "ZoscBundle", "index.html#autotoc_md4", null ],
+      [ "ZoscReceiver", "index.html#autotoc_md5", null ],
+      [ "ZoscSender", "index.html#autotoc_md6", null ]
     ] ],
-    [ "<strong>Usage</strong> 🔧", "index.html#autotoc_md8", [
-      [ "<strong>Requirements</strong>", "index.html#autotoc_md9", null ],
-      [ "<strong>Building Zosc</strong>", "index.html#autotoc_md10", null ]
+    [ "Usage 🔧", "index.html#autotoc_md8", [
+      [ "Requirements", "index.html#autotoc_md9", null ],
+      [ "Building Zosc", "index.html#autotoc_md10", null ]
     ] ],
     [ "Documentation 📖", "index.html#autotoc_md11", null ],
     [ "References 📖", "index.html#autotoc_md13", null ],
