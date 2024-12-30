@@ -60,7 +60,7 @@ ___
 
 The full documentation for **zosc** is available online. You can view it by clicking the link below:
 
-- [View Documentation](https://PedroZappa.github.io/zosc/)
+<a href="https://PedroZappa.github.io/zosc/" target="_blank">View Documentation</a>
 
 Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
 
