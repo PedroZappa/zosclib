@@ -8,6 +8,14 @@
 #include <iostream>
 #include <thread>
 
+/**
+* @brief Class for receiving OSC messages over UDP
+* @details This class encapsulates the logic for receiving OSC messages over UDP.
+* It uses ASIO to handle the I/O operations. It also provides methods to set callbacks for received messages and bundles.
+*
+* @class ZoscReceiver
+* @ingroup OSC Tools
+**/
 class ZoscReceiver {
   public:
 	// Constructor & Destructor

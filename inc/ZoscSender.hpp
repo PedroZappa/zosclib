@@ -3,6 +3,14 @@
 
 #include "Zosc.hpp"
 
+/**
+* @brief Class for sending OSC messages over UDP
+* @details This class encapsulates the logic for sending OSC messages over UDP.
+* It uses ASIO to handle the I/O operations.
+*
+* @class OscSender
+* @ingroup OSC Tools
+**/
 class OscSender {
   public:
 	// Constructor: Initialize with host and port for sending OSC messages

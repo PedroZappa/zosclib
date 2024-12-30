@@ -34,8 +34,8 @@ typedef struct s_debug_msg {
 /*                                   Macros                                   */
 /* ************************************************************************** */
 
-#define _DEBUG(status, msg) \
-	debug(typeid(*this).name(), __func__, status, msg)
+/// @brief Macro to print debug messages
+#define _DEBUG(status, msg) debug(typeid(*this).name(), __func__, status, msg)
 
 /* ************************************************************************** */
 /*                            Function Prototypes                             */

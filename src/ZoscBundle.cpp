@@ -1,3 +1,8 @@
+/**
+ * @defgroup osc_core Core OSC Components
+ * @{
+ */
+
 #include "../inc/Zosc.hpp"
 
 /* ************************************************************************** */
@@ -178,3 +183,4 @@ ZoscBundle ZoscBundle::deserialize(const std::string &data) {
 
 	return (bundle);
 }
+/** @} */

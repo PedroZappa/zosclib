@@ -12,8 +12,9 @@ using OscArg =
 	std::variant<int32_t, float, std::string, std::vector<uint8_t>, uint32_t>;
 
 /**
- * @brief Short description
- * @details Longer description
+ * @brief Encapsulates an OSC message
+ * @details This class represents an OSC message, composed of a string that 
+ * contains an address pattern followed by a list of arguments.
  *
  * @class ZoscMessage
  * @ingroup OSC Data Types

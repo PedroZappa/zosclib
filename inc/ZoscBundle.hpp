@@ -8,6 +8,13 @@
 
 #define NTP_DIFF 2208988800
 
+/**
+ * @brief Encapsulates an OSC bundle
+ * @details This class represents an OSC bundle, composed of a time tag and a vector of messages and/or bundles.
+ *
+ * @class ZoscBundle
+ * @ingroup OSC Data Types
+* **/
 class ZoscBundle {
   public:
 	// Nested TimeTag class

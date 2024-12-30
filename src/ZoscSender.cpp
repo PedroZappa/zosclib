@@ -1,3 +1,8 @@
+/**
+ * @defgroup zosc_network Network OSC Components
+ * @{
+ */
+
 #include "../inc/ZoscSender.hpp"
 
 /* ************************************************************************** */
@@ -70,3 +75,4 @@ void OscSender::sendRaw(const std::vector<uint8_t> &data) {
 		std::cerr << "Error sending data: " << e.what() << std::endl;
 	}
 }
+/** @} */

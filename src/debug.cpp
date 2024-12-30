@@ -1,3 +1,7 @@
+/** 
+* @defgroup zosc_debug Debug Functions
+* @{
+*/
 #include "../inc/Zosc.hpp"
 
 const t_debug_msg dbg_msg[6] = {{" INFO", SHOW_MSG, 5, "(ii) ", BBLU},
@@ -42,3 +46,4 @@ void debug(const std::string &className,
 	// Print to standard error and reset color
 	std::cerr << msg.str() << NC << std::endl;
 }
+/** @} */

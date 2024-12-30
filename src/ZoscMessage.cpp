@@ -1,11 +1,7 @@
-/** 
- * @brief Short description
- * @details Longer description
- * 
- * @class ZoscMessage
- * @ingroup OSC
+/**
+ * @defgroup zosc_core Core OSC Components
+ * @{
  */
-
 #include "../inc/ZoscMessage.hpp"
 #include "../inc/Zosc.hpp"
 
@@ -235,3 +231,4 @@ std::ostream &operator<<(std::ostream &os, const OscArg &variant) {
 		variant);
 	return os;
 }
+/** @} */

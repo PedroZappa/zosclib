@@ -1,3 +1,7 @@
+/**
+ * @defgroup zosc_network Network OSC Components
+ * @{
+ */
 #include "../inc/ZoscReceiver.hpp"
 
 /* ************************************************************************** */
@@ -119,4 +123,5 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 			std::cerr << "Failed to process data: " << e.what() << std::endl;
 		}
 	}
-}
+} 
+/** @} */
