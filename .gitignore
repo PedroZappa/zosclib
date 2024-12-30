@@ -6,6 +6,8 @@
 *.lo
 *.o
 *.obj
+.build/
+.temp/
 
 # Precompiled Headers
 *.gch
@@ -34,3 +36,6 @@ compile_commands.json
 
 # DEBUG
 gdb.txt
+
+#Cache
+*.cache

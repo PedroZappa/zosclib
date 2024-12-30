@@ -51,7 +51,7 @@ ZoscBundle::ZoscBundle(void) : _timeTag(ZoscTimeTag::now()) {
 
 /// @brief Construct a new ZoscBundle object
 /// @param _timeTag The time tag of the OSC bundle
-ZoscBundle::ZoscBundle(const ZoscTimeTag &_timeTag) : _timeTag(_timeTag) {
+ZoscBundle::ZoscBundle(const ZoscTimeTag &timeTag) : _timeTag(timeTag) {
 }
 
 /* ************************************************************************** */
@@ -76,8 +76,8 @@ ZoscBundle::getElements() const {
 
 /// @brief Set the time tag of the OSC bundle
 /// @param _timeTag The time tag of the OSC bundle
-void ZoscBundle::setTimeTag(const ZoscTimeTag &_timeTag) {
-	this->_timeTag = _timeTag;
+void ZoscBundle::setTimeTag(const ZoscTimeTag &timeTag) {
+	this->_timeTag = timeTag;
 }
 
 /// @brief Add a message to the OSC bundle

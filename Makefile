@@ -33,6 +33,7 @@ SRC_PATH		= src
 INC_PATH		= inc
 BUILD_PATH	= .build
 TEMP_PATH		= .temp
+TEST_PATH		=
 
 FILES			= ZoscMessage.cpp
 FILES			+= ZoscBundle.cpp
@@ -42,13 +43,16 @@ ifeq ($(MODE), debug)
 FILES			+= debug.cpp
 endif
 
-EXEC_FILES			= main.cpp
+TEST_FILES	= main.cpp
 
 SRC				= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS			= $(SRC:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o)
 
+TEST_SRC		= $(addprefix ./, $(TEST_FILES))
+TEST_OBJS		= $(TEST_SRC:$(TEST_PATH)/%.cpp=$(BUILD_PATH)/%.o)
+
 ZOSC_PATH		= $(SRC_PATH)
-ZOSC_ARC		= $(SRC_PATH)/zosclib.a
+ZOSC_ARC		= zosclib.a
 
 #==============================================================================#
 #                              COMPILER & FLAGS                                #
@@ -56,8 +60,10 @@ ZOSC_ARC		= $(SRC_PATH)/zosclib.a
 
 CXX					= g++
 CXXFLAGS	  = -Wall -Wextra -Werror
-CXXFLAGS	  += #-Wshadow
+CXXFLAGS	  += -Wshadow
+
 DEBUG_FLAGS	= -g -O0 -D DEBUG
+
 INC					= -I $(INC_PATH)
 
 #==============================================================================#
@@ -88,18 +94,18 @@ $(NAME): $(BUILD_PATH) $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	@echo "* $(_NAME) archived: $(_SUCCESS) $(YEL)🖔$(D)"
 
-$(EXEC): $(BUILD_PATH) $(OBJS) $(ZOSC_ARC)			## Compile
+$(EXEC): $(BUILD_PATH) $(TEST_OBJS) $(ZOSC_ARC)			## Compile
 	@echo "$(YEL)Compiling $(MAG)$(NAME)$(YEL)$(D)"
-	$(BEAR_CMD) $(CXX) $(CXXFLAGS) $(ZOSC_ARC) $(OBJS) -o $(EXEC)
+	$(BEAR_CMD) $(CXX) $(CXXFLAGS) $(TEST_OBJS) $(ZOSC_ARC) -o $(EXEC)
 	@echo "[$(_SUCCESS) compiling $(MAG)$(NAME)$(D) $(YEL)🖔$(D)]"
 
-exec: $(NAME) $(TEMP_PATH)			## Run
+exec: $(NAME) $(EXEC) $(TEST_FILES) $(TEMP_PATH)			## Run
 	@echo "$(YEL)Running $(MAG)$(EXEC)$(YEL)$(D)"
 	./$(EXEC) $(ARG)
 
-$(NAME): CXXFLAGS += $(DEBUG_FLAGS)
-debug: fclean $(TEMP_PATH) 			## Compile w/ debug symbols
-	make $(NAME) MODE=debug
+export CXXFLAGS
+debug: CXXFLAGS += $(DEBUG_FLAGS)
+debug: fclean $(TEMP_PATH) $(NAME) 		## Compile w/ debug symbols
 
 -include $(BUILD_PATH)/%.d
 
@@ -123,23 +129,23 @@ test_all:						## Run All tests
 
 ##@ Debug Rules 
 
-gdb: debug $(NAME) $(TEMP_PATH)			## Debug w/ gdb
-	tmux split-window -h "gdb --tui --args ./$(NAME)"
+gdb: debug $(EXEC) $(TEMP_PATH)			## Debug w/ gdb
+	tmux split-window -h "gdb --tui --args ./$(EXEC)"
 	tmux resize-pane -L 5
 	# tmux split-window -v "btop"
 	make get_log
 
 vgdb: debug $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
-	tmux split-window -h "valgrind $(VGDB_ARGS) --log-file=gdb.txt ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind $(VGDB_ARGS) --log-file=gdb.txt ./$(EXEC) $(ARG)"
 	make vgdb_cmd
-	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
+	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(EXEC)"
 	tmux resize-pane -U 18
 	# tmux split-window -v "btop"
 	make get_log
 
-valgrind: debug $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
+valgrind: debug $(EXEC) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
 	tmux set-option remain-on-exit on
-	tmux split-window -h "valgrind $(VAL_LEAK) $(VAL_FD) ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind $(VAL_LEAK) $(VAL_FD) ./$(EXEC) $(ARG)"
 
 massif: all $(TEMP_PATH)		## Run Valgrind w/ Massif (gather profiling information)
 	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
@@ -185,12 +191,19 @@ clean: 				## Remove object files
 
 fclean: clean			## Remove executable and .gdbinit
 	@if [ -f "$(NAME)" ]; then \
-		if [ -f "$(NAME)" ]; then \
-			$(RM) $(NAME); \
-			echo "* $(YEL)Removing $(CYA)$(NAME)$(D) file: $(_SUCCESS)"; \
-		fi; \
-	else \
-		echo " $(RED)$(D) [$(GRN)Nothing to be fcleaned!$(D)]"; \
+		$(RM) $(NAME); \
+		echo "* $(YEL)Removing $(CYA)$(NAME)$(D) file: $(_SUCCESS)"; \
+	fi
+	@if [ -f "$(EXEC)" ]; then \
+		$(RM) $(EXEC); \
+		echo "* $(YEL)Removing $(CYA)$(EXEC)$(D) file: $(_SUCCESS)"; \
+	fi
+	@if [ ! -f "$(NAME)" ] && [ ! -f "$(EXEC)" ]; then \
+		echo " $(RED)$(D) [$(GRN)Nothing to be fcleaned!$(D)]"; \
+	fi
+	@if [ -f "$(NAME)" ]; then \
+		$(RM) $(NAME); \
+		echo "* $(YEL)Removing $(CYA)$(NAME)$(D) file: $(_SUCCESS)"; \
 	fi
 
 re: fclean all	## Purge & Recompile
