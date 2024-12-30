@@ -1,6 +1,9 @@
 # zosc
 zosc: OSC C++ Lib
 > Zosc 0.1  
+
+![ZOSC Logo](./img/zosc_logo.png) 
+
 <!-- mtoc-start -->
 
 * [**Features** 🚀](#features-)
