@@ -55,6 +55,16 @@ make
 ```
 Include the Zosc headers in your project. Zosc is a header-only library, so no additional build steps are required.
 
+___
+
+## Documentation 📖
+
+The full documentation for **zosc** is available online. You can view it by clicking the link below:
+
+- [View Documentation](./docs/html/index.html)
+
+Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
+
 ---
 
 ## References 📖
