@@ -1,10 +1,10 @@
 #include "../inc/ZoscMessage.hpp"
 #include <arpa/inet.h>
 #include <cstring>
+#include <deque>
+#include <list>
 #include <sstream>
 #include <variant>
-#include <list>
-#include <deque>
 
 /* ************************************************************************** */
 /*                                Constructors                                */
@@ -202,30 +202,35 @@ ZoscMessage ZoscMessage::deserialize(const std::string &data) {
 /// @param os The output stream
 /// @param arg The argument to print
 std::ostream &operator<<(std::ostream &os, const OscArg &arg) {
-    std::visit([&os](const auto& value) {
-        using T = std::decay_t<decltype(value)>;
-        if constexpr (std::is_same_v<T, std::vector<uint8_t>> ||
-                     std::is_same_v<T, std::vector<int32_t>> ||
-                     std::is_same_v<T, std::vector<float>> ||
-                     std::is_same_v<T, std::vector<double>> ||
-                     std::is_same_v<T, std::deque<uint8_t>> ||
-                     std::is_same_v<T, std::list<uint8_t>>) {
-            // Generic container handling
-            os << "[";
-            bool first = true;
-            for (const auto &elem : value) {
-                if (!first) os << ", ";
-                if constexpr (std::is_same_v<std::decay_t<decltype(elem)>, uint8_t>) {
-                    os << static_cast<int>(elem); // Cast uint8_t to int for readable output
-                } else {
-                    os << elem;
-                }
-                first = false;
-            }
-            os << "]";
-        } else {
-            os << value; // Default case for other types
-        }
-    }, arg);
-    return os;
+	std::visit(
+		[&os](const auto &val) {
+			using T =
+				std::decay_t<decltype(val)>; // Simplify type for comparisson
+			if constexpr (std::is_same_v<T, std::vector<uint8_t>> ||
+						  std::is_same_v<T, std::vector<int32_t>> ||
+						  std::is_same_v<T, std::vector<float>> ||
+						  std::is_same_v<T, std::vector<double>> ||
+						  std::is_same_v<T, std::deque<uint8_t>> ||
+						  std::is_same_v<T, std::list<uint8_t>>) {
+				// Generic container handling
+				os << "[";
+				bool first = true;
+				for (const auto &elem : val) {
+					if (!first)
+						os << ", ";
+					if constexpr (std::is_same_v<std::decay_t<decltype(elem)>,
+												 uint8_t>) {
+						os << static_cast<int>(
+							elem); // Cast uint8_t to int for readable output
+					} else {
+						os << elem;
+					}
+					first = false;
+				}
+				os << "]";
+			} else
+				os << val; // Default case for other types
+		},
+		arg);
+	return os;
 }
