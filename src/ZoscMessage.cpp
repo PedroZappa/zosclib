@@ -200,8 +200,8 @@ ZoscMessage ZoscMessage::deserialize(const std::string &data) {
 
 /// @brief Overload operator<< for the OscArg variant
 /// @param os The output stream
-/// @param arg The argument to print
-std::ostream &operator<<(std::ostream &os, const OscArg &arg) {
+/// @param variant The argument to print
+std::ostream &operator<<(std::ostream &os, const OscArg &variant) {
 	std::visit(
 		[&os](const auto &val) {
 			using T =
@@ -231,6 +231,6 @@ std::ostream &operator<<(std::ostream &os, const OscArg &arg) {
 			} else
 				os << val; // Default case for other types
 		},
-		arg);
+		variant);
 	return os;
 }

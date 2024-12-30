@@ -6,40 +6,43 @@
 #include <variant>
 #include <vector>
 
-class OscBundle {
+#define NTP_DIFF 2208988800
+
+class ZoscBundle {
   public:
 	// Nested TimeTag class
-	class OscTimeTag {
+	class ZoscTimeTag {
 	  public:
-		OscTimeTag();
-		explicit OscTimeTag(uint64_t value);
-		static OscTimeTag now();
+		ZoscTimeTag();
+		explicit ZoscTimeTag(uint64_t value);
+
 		uint64_t getValue() const;
+		static ZoscTimeTag now();
 
 	  private:
 		uint64_t value; // 64-bit NTP timestamp
 	};
 
 	// Constructors
-	OscBundle();
-	explicit OscBundle(const OscTimeTag &timeTag);
+	ZoscBundle();
+	explicit ZoscBundle(const ZoscTimeTag &timeTag);
 
 	// Getters and Setters
-	const OscTimeTag &getTimeTag() const;
-	void setTimeTag(const OscTimeTag &timeTag);
+	const ZoscTimeTag &getTimeTag() const;
+	void setTimeTag(const ZoscTimeTag &timeTag);
 
 	void addMessage(const ZoscMessage &message);
-	void addBundle(const OscBundle &bundle);
+	void addBundle(const ZoscBundle &bundle);
 
-	const std::vector<std::variant<ZoscMessage, OscBundle>> &getElements() const;
+	const std::vector<std::variant<ZoscMessage, ZoscBundle>> &getElements() const;
 
 	// Serialization and Deserialization
 	std::string serialize() const;
-	static OscBundle deserialize(const std::string &data);
+	static ZoscBundle deserialize(const std::string &data);
 
   private:
-	OscTimeTag timeTag; // TimeTag for scheduling
-	std::vector<std::variant<ZoscMessage, OscBundle>>
+	ZoscTimeTag timeTag; // TimeTag for scheduling
+	std::vector<std::variant<ZoscMessage, ZoscBundle>>
 		elements; // Nested messages and bundles
 };
 
