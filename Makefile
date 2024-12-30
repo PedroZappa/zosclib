@@ -7,7 +7,8 @@ BEAR_CMD := $(shell command -v bear >/dev/null 2>&1 && echo "bear --" || echo ""
 SHELL	:= bash --rcfile ~/.bashrc
 
 # Default test values
-# MODE			= debug
+MODE			?= release
+DEBUG			?= 0
 IN_PATH		?= $(SRC_PATH)
 ARG				=
 
@@ -35,7 +36,11 @@ TEMP_PATH		= .temp
 
 FILES			= ZoscMessage.cpp
 FILES			+= ZoscBundle.cpp
+FILES			+= ZoscSender.cpp
+
+ifeq ($(MODE), debug)
 FILES			+= debug.cpp
+endif
 
 EXEC_FILES			= main.cpp
 
@@ -52,7 +57,7 @@ ZOSC_ARC		= $(SRC_PATH)/zosclib.a
 CXX					= g++
 CXXFLAGS	  = -Wall -Wextra -Werror
 CXXFLAGS	  += #-Wshadow
-DEBUG_FLAGS	= -g
+DEBUG_FLAGS	= -g -O0 -D DEBUG
 INC					= -I $(INC_PATH)
 
 #==============================================================================#
@@ -93,7 +98,8 @@ exec: $(NAME) $(TEMP_PATH)			## Run
 	./$(EXEC) $(ARG)
 
 debug: CXX = g++
-debug: CXXFLAGS += $(DEBUG_FLAGS) -O0 -D DEBUG
+debug: CXXFLAGS += $(DEBUG_FLAGS)
+debug: MODE=debug
 debug: fclean $(NAME) $(TEMP_PATH)			## Compile w/ debug symbols
 
 -include $(BUILD_PATH)/%.d
