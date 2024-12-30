@@ -1,0 +1,6 @@
+break main
+fs cmd
+info thread
+info break
+continue
+

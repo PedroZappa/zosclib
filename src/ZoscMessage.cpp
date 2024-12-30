@@ -1,7 +1,10 @@
 #include "../inc/ZoscMessage.hpp"
+#include "../inc/ansi.h"
+#include "../inc/debug.hpp"
 #include <arpa/inet.h>
 #include <cstring>
 #include <deque>
+#include <iostream>
 #include <list>
 #include <sstream>
 #include <variant>

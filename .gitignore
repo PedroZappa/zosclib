@@ -31,3 +31,6 @@ compile_commands.json
 *.exe
 *.out
 *.app
+
+# DEBUG
+gdb.txt

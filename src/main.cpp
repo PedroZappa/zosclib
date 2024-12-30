@@ -14,7 +14,6 @@ int main(void) {
 	message.addArgument("Yo, whirl!");
 	message.addArgument(123456789);
 	message.addArgument(std::vector<uint8_t>{1, 2, 3, 4});
-	std::cout << message.getAddress() << std::endl;
 
 	const std::vector<OscArg> &args = message.getArgs();
 	for (const auto &arg : args)
@@ -27,6 +26,10 @@ int main(void) {
 
 	ZoscMessage deSerial = deSerial.deserialize(serialData);
 	std::cout << deSerial.getAddress() << std::endl;
+	const std::vector<OscArg> &deSerialArgs = deSerial.getArgs();
+	for (const auto &arg : deSerialArgs)
+		std::cout << arg << std::endl;
+	std::cout << deSerialArgs.size() << std::endl;
 
 	return (0);
 }

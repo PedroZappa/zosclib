@@ -34,6 +34,7 @@ TEMP_PATH		= .temp
 FILES			= main.cpp
 FILES			+= ZoscMessage.cpp
 FILES			+= ZoscBundle.cpp
+FILES			+= debug.cpp
 
 SRC				= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS			= $(SRC:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o)
@@ -81,7 +82,8 @@ exec: $(NAME) $(TEMP_PATH)			## Run
 	./$(NAME) $(ARG)
 
 debug: CXX = g++
-debug: CXXFLAGS += $(DEBUG_FLAGS) -D DEBUG
+debug: CXXFLAGS += $(DEBUG_FLAGS) -O0 -D DEBUG
+debug: CXXFLAGS += -D_GLIBCXX_DEBUG
 debug: fclean $(NAME) $(TEMP_PATH)			## Compile w/ debug symbols
 
 -include $(BUILD_PATH)/%.d
