@@ -5,12 +5,12 @@ OSC C++ Lib
 ![ZOSC Logo](./img/zosc_logo.png) 
 
 
-**zosc** is a C++ library for working with the **Open Sound Control** (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
+zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
 ---
 
-## **Features** 🚀
+## Features 🚀
 
-### **ZoscMessage**  
+### ZoscMessage  
 - Create and manage OSC messages with address patterns.  
 - Supports multiple argument types:  
   - `int32_t`  
@@ -20,30 +20,30 @@ OSC C++ Lib
   - `uint32_t`  
 - Serialize and deserialize OSC-compliant byte streams.  
 
-### **ZoscBundle**  
+### ZoscBundle  
 - Nest OSC messages and bundles hierarchically.  
 - Use NTP-compatible TimeTags for precise scheduling.  
 - Serialize and deserialize bundles into OSC formats.  
 
-### **ZoscReceiver**  
+### ZoscReceiver  
 - Listen for incoming OSC messages and bundles on a specified UDP port.  
 - Use callback functions for customized message and bundle processing.  
 - Operates asynchronously using the ASIO library.  
 
-### **ZoscSender**  
+### ZoscSender  
 - Send OSC messages and bundles over UDP.  
 - Supports raw OSC-encoded data transmission.  
 - Optimized for low-latency networking.  
 
 ---
 
-## **Usage** 🔧 
+## Usage 🔧 
 
-### **Requirements**  
+### Requirements  
 - C++17 or later  
 - [ASIO](https://think-async.com/) library (standalone or via Boost)  
 
-### **Building Zosc**  
+### Building Zosc  
 1. Clone the repository:  
    ```bash
    git clone https://github.com/PedroZappa/zosc.git
@@ -61,7 +61,7 @@ ___
 
 The full documentation for **zosc** is available online. You can view it by clicking the link below:
 
-- [View Documentation](./docs/html/index.html)
+- [View Documentation](https://PedroZappa.github.io/zosc/)
 
 Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
 
