@@ -11,6 +11,7 @@
 /*                               Standard Libs                                */
 /* ************************************************************************** */
 
+#include <csignal>
 #include <algorithm>
 #include <arpa/inet.h>
 #include <asio.hpp> // Socket mgmt

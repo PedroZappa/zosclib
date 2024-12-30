@@ -5,7 +5,7 @@
 #include "inc/ZoscBundle.hpp"
 #include "inc/ZoscMessage.hpp"
 #include "inc/ZoscSender.hpp"
-#include "inc/zosc.hpp"
+#include "inc/Zosc.hpp"
 #include <csignal>
 
 // #define IP "127.0.0.1"

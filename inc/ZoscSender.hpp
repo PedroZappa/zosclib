@@ -1,7 +1,7 @@
 #ifndef ZOSC_SENDER_H
 #define ZOSC_SENDER_H
 
-#include "zosc.hpp"
+#include "Zosc.hpp"
 
 class OscSender {
   public:

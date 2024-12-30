@@ -1,5 +1,5 @@
 #include "../inc/ZoscMessage.hpp"
-#include "../inc/zosc.hpp"
+#include "../inc/Zosc.hpp"
 
 /* ************************************************************************** */
 /*                                Constructors                                */
