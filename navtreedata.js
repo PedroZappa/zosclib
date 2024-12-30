@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "zosc", "index.html", [
-    [ "zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.", "index.html#autotoc_md1", null ],
     [ "Features 🚀", "index.html#autotoc_md2", [
       [ "ZoscMessage", "index.html#autotoc_md3", null ],
       [ "ZoscBundle", "index.html#autotoc_md4", null ],
