@@ -11,13 +11,20 @@
 using OscArg =
 	std::variant<int32_t, float, std::string, std::vector<uint8_t>, uint32_t>;
 
+/**
+ * @brief Short description
+ * @details Longer description
+ *
+ * @class ZoscMessage
+ * @ingroup OSC Data Types
+ */
 class ZoscMessage {
   public:
 	// Constructors
 	ZoscMessage() = default;
 	explicit ZoscMessage(const std::string &address);
 
-	// Getters 
+	// Getters
 	const std::string &getAddress() const;
 	const std::vector<OscArg> &getArgs() const;
 
@@ -35,6 +42,6 @@ class ZoscMessage {
 };
 
 // Overload operator<< for the OscArg variant
-std::ostream& operator<<(std::ostream &os, const OscArg &arg);
+std::ostream &operator<<(std::ostream &os, const OscArg &arg);
 
 #endif // ZOSC_MESSAGE_HPP

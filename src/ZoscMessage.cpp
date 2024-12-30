@@ -1,3 +1,11 @@
+/** 
+ * @brief Short description
+ * @details Longer description
+ * 
+ * @class ZoscMessage
+ * @ingroup OSC
+ */
+
 #include "../inc/ZoscMessage.hpp"
 #include "../inc/Zosc.hpp"
 
