@@ -20,30 +20,30 @@ class ZoscBundle {
 		static ZoscTimeTag now();
 
 	  private:
-		uint64_t value; // 64-bit NTP timestamp
+		uint64_t _value; // 64-bit NTP timestamp
 	};
 
 	// Constructors
 	ZoscBundle();
 	explicit ZoscBundle(const ZoscTimeTag &timeTag);
 
-	// Getters and Setters
+	// Getters
 	const ZoscTimeTag &getTimeTag() const;
-	void setTimeTag(const ZoscTimeTag &timeTag);
+	const std::vector<std::variant<ZoscMessage, ZoscBundle>> &getElements() const;
 
+	// Setters
+	void setTimeTag(const ZoscTimeTag &timeTag);
 	void addMessage(const ZoscMessage &message);
 	void addBundle(const ZoscBundle &bundle);
-
-	const std::vector<std::variant<ZoscMessage, ZoscBundle>> &getElements() const;
 
 	// Serialization and Deserialization
 	std::string serialize() const;
 	static ZoscBundle deserialize(const std::string &data);
 
   private:
-	ZoscTimeTag timeTag; // TimeTag for scheduling
+	ZoscTimeTag _timeTag; // TimeTag for scheduling
 	std::vector<std::variant<ZoscMessage, ZoscBundle>>
-		elements; // Nested messages and bundles
+		_elements; // Nested messages and bundles
 };
 
 #endif // ZOSC_BUNDLE_HPP

@@ -30,3 +30,29 @@ int main(void) {
 
 	return (0);
 }
+
+// int main() {
+// 	// Create a message
+// 	ZoscMessage message("/example");
+// 	message.addArgument(42);
+// 	message.addArgument(3.14f);
+//
+// 	// Create a bundle
+// 	ZoscBundle bundle;
+// 	bundle.addMessage(message);
+//
+// 	// Nested bundle
+// 	ZoscBundle nestedBundle;
+// 	nestedBundle.addMessage(message);
+// 	bundle.addBundle(nestedBundle);
+//
+// 	// Serialize the bundle
+// 	std::string serialized = bundle.serialize();
+// 	std::cout << "Serialized Bundle: " << serialized << std::endl;
+//
+// 	// Deserialize the bundle
+// 	// ZoscBundle deserializedBundle = ZoscBundle::deserialize(serialized);
+// 	// std::cout << "Deserialized Bundle TimeTag: " << deserializedBundle.getTimeTag().getValue() << std::endl;
+//
+// 	return 0;
+// }

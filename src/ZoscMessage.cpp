@@ -213,7 +213,6 @@ std::ostream &operator<<(std::ostream &os, const OscArg &variant) {
 						  std::is_same_v<T, std::deque<uint8_t>> ||
 						  std::is_same_v<T, std::list<uint8_t>>) {
 				// Generic container handling
-				os << "[";
 				bool first = true;
 				for (const auto &elem : val) {
 					if (!first)
@@ -227,7 +226,6 @@ std::ostream &operator<<(std::ostream &os, const OscArg &variant) {
 					}
 					first = false;
 				}
-				os << "]";
 			} else
 				os << val; // Default case for other types
 		},

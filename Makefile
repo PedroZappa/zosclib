@@ -33,6 +33,7 @@ TEMP_PATH		= .temp
 
 FILES			= main.cpp
 FILES			+= ZoscMessage.cpp
+FILES			+= ZoscBundle.cpp
 
 SRC				= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS			= $(SRC:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o)
