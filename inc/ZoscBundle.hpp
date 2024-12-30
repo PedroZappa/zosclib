@@ -10,14 +10,19 @@
 
 /**
  * @brief Encapsulates an OSC bundle
- * @details This class represents an OSC bundle, composed of a time tag and a vector of messages and/or bundles.
+ * @details This class represents an OSC bundle, composed of a time tag and a
+ * vector of messages and/or bundles.
  *
  * @class ZoscBundle
  * @ingroup OSC Data Types
-* **/
+ * **/
 class ZoscBundle {
   public:
-	// Nested TimeTag class
+	/**
+	 * @class OscTimeTag
+	 * @brief NTP-compatible timestamp for OSC bundles
+	 * @details 64-bit fixed-point time tag, upper 32 bits for seconds since 1900
+	 */
 	class ZoscTimeTag {
 	  public:
 		ZoscTimeTag();

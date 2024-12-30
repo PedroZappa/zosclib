@@ -8,6 +8,7 @@
 *.obj
 .build/
 .temp/
+doc/
 
 # Precompiled Headers
 *.gch

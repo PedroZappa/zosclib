@@ -10,10 +10,11 @@
 /* ************************************************************************** */
 
 /// @brief Construct a new ZoscTimeTag object
-/// @param value The value of the ZoscTimeTag
 ZoscBundle::ZoscTimeTag::ZoscTimeTag() : _value(0) {
 }
 
+/// @brief Construct a new ZoscTimeTag object
+/// @param value The value of the ZoscTimeTag
 ZoscBundle::ZoscTimeTag::ZoscTimeTag(uint64_t value) : _value(value) {
 }
 
@@ -55,7 +56,7 @@ ZoscBundle::ZoscBundle(void) : _timeTag(ZoscTimeTag::now()) {
 }
 
 /// @brief Construct a new ZoscBundle object
-/// @param _timeTag The time tag of the OSC bundle
+/// @param timeTag The time tag of the OSC bundle
 ZoscBundle::ZoscBundle(const ZoscTimeTag &timeTag) : _timeTag(timeTag) {
 }
 
@@ -80,7 +81,7 @@ ZoscBundle::getElements() const {
 /* ************************************************************************** */
 
 /// @brief Set the time tag of the OSC bundle
-/// @param _timeTag The time tag of the OSC bundle
+/// @param timeTag The time tag of the OSC bundle
 void ZoscBundle::setTimeTag(const ZoscTimeTag &timeTag) {
 	this->_timeTag = timeTag;
 }
@@ -137,6 +138,11 @@ std::string ZoscBundle::serialize() const {
 	return (oss.str());
 }
 
+/// @brief Deserialize the OSC bundle
+/// @param data The data to deserialize
+/// @return The deserialized OSC bundle
+/// @throws std::runtime_error if the data is not a valid OSC bundle
+/// @return The deserialized OSC bundle
 ZoscBundle ZoscBundle::deserialize(const std::string &data) {
 	if ((data.size() < 16) || (data.substr(0, 7) != "#bundle"))
 		throw std::runtime_error("Malformed OSC bundle: Missing #bundle "

@@ -1,3 +1,10 @@
+/**
+ * @page osc_protocol OSC Protocol Implementation
+ * Describes how ZOSC implements the OSC 1.0 specification:
+ * - Message Format
+ * - Bundle Structure
+ * - Type Tags
+ */
 #ifndef ZOSC_HPP
 #define ZOSC_HPP
 
