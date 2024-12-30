@@ -2,15 +2,20 @@
 /// @brief Main entry point
 /// @Author: Zedro
 
-#include "inc/zosc.hpp"
-#include "inc/ZoscSender.hpp"
-#include "inc/ZoscMessage.hpp"
 #include "inc/ZoscBundle.hpp"
+#include "inc/ZoscMessage.hpp"
+#include "inc/ZoscSender.hpp"
+#include "inc/zosc.hpp"
+#include <csignal>
 
 // #define IP "127.0.0.1"
 #define IP "192.168.1.168"
 // #define IP "192.168.1.138"
 #define PORT 9000
+
+static volatile bool _listening = true;
+
+static void SIGINT_handler(int sig);
 
 int main(void) {
 	ZoscMessage message("/test");
@@ -18,6 +23,8 @@ int main(void) {
 	message.addArgument(3.14f);
 	message.addArgument("Yo, whirl!");
 	message.addArgument(std::vector<uint8_t>{1, 2, 3, 4});
+
+	signal(SIGINT, &SIGINT_handler);
 
 	const std::vector<OscArg> &args = message.getArgs();
 	for (const auto &arg : args)
@@ -42,33 +49,22 @@ int main(void) {
 	sender.sendMessage(message);
 	std::cout << "Message sent" << std::endl;
 
+	// Listen for messages
+	ZoscReceiver receiver(PORT);
+	receiver.setMessageCallback([](const ZoscMessage &msg) {
+		std::cout << "Received message: " << msg.getAddress() << std::endl;
+	});
+	while (_listening) {
+		receiver.start();
+	}
+	receiver.stop();
 
 	return (0);
 }
 
-// int main() {
-// 	// Create a message
-// 	ZoscMessage message("/example");
-// 	message.addArgument(42);
-// 	message.addArgument(3.14f);
-//
-// 	// Create a bundle
-// 	ZoscBundle bundle;
-// 	bundle.addMessage(message);
-//
-// 	// Nested bundle
-// 	ZoscBundle nestedBundle;
-// 	nestedBundle.addMessage(message);
-// 	bundle.addBundle(nestedBundle);
-//
-// 	// Serialize the bundle
-// 	std::string serialized = bundle.serialize();
-// 	std::cout << "Serialized Bundle: " << serialized << std::endl;
-//
-// 	// Deserialize the bundle
-// 	// ZoscBundle deserializedBundle = ZoscBundle::deserialize(serialized);
-// 	// std::cout << "Deserialized Bundle TimeTag: " <<
-// deserializedBundle.getTimeTag().getValue() << std::endl;
-//
-// 	return 0;
-// }
+/// @brief SIGINT handler
+/// @param sig Signal number
+static void SIGINT_handler(int sig) {
+	(void)sig;
+	_listening = false;
+}

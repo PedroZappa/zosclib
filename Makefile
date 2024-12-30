@@ -38,6 +38,7 @@ TEST_PATH		=
 FILES			= ZoscMessage.cpp
 FILES			+= ZoscBundle.cpp
 FILES			+= ZoscSender.cpp
+FILES			+= ZoscReceiver.cpp
 
 ifeq ($(MODE), debug)
 FILES			+= debug.cpp

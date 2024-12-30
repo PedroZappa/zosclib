@@ -1,6 +1,7 @@
 #ifndef ZOSC_MESSAGE_HPP
 #define ZOSC_MESSAGE_HPP
 
+#include <asio.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>
