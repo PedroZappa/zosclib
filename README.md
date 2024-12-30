@@ -13,11 +13,11 @@ zosc: OSC C++ Lib
 - [ ] SCheck Serialization/Deserialization Edge Cases
 - [ ] OSC TimeTag Handling
 - [ ] Unit Tests
-- [ ] OscSender (send over UDP)
+- [x] ZoscSender (send over UDP)
     * Store Adress/port for the recipient
     * Methods to send Messages & Bundles
     * UDP Socket management
-- [ ] OscReceiver
+- [ ] ZoscReceiver
     * Listen on a UDP port
     * Deserialize Messages & Bundles
     * Process & Handle incoming data
