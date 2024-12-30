@@ -2,10 +2,7 @@
 /// @brief Main entry point
 /// @Author: Zedro
 
-#include "../inc/zosc.hpp"
-#include <algorithm>
-#include <iostream>
-#include <ostream>
+#include "inc/zosc.hpp"
 
 int main(void) {
 	ZoscMessage message("/test");

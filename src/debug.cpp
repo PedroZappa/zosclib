@@ -1,4 +1,4 @@
-#include "../inc/debug.hpp"
+#include "../inc/zosc.hpp"
 
 const t_debug_msg dbg_msg[6] = {{" INFO", SHOW_MSG, 5, "(ii) ", BBLU},
 								{" START", FSTART, 6, "(>>) ", GRN},

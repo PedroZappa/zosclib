@@ -1,8 +1,4 @@
-#include "../inc/ZoscBundle.hpp"
-#include <arpa/inet.h> // htonl
-#include <chrono>
-#include <cstring> // memset
-#include <sstream>
+#include "../inc/zosc.hpp"
 
 /* ************************************************************************** */
 /*                                ZoscTimeTag                                 */
