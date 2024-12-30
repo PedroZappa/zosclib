@@ -4,6 +4,8 @@ zosc: OSC C++ Lib
 
 ![ZOSC Logo](./img/zosc_logo.png) 
 
+
+**Zosc** is a C++ library for working with the **Open Sound Control** (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
 <!-- mtoc-start -->
 
 * [**Features** 🚀](#features-)
@@ -18,9 +20,6 @@ zosc: OSC C++ Lib
 * [License 🔏](#license-)
 
 <!-- mtoc-end -->
-
-**Zosc** is a C++ library for working with the **Open Sound Control** (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
-
 ---
 
 ## **Features** 🚀
