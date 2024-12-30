@@ -15,9 +15,11 @@ ARG				=
 #                                     NAMES                                    #
 #==============================================================================#
 
-NAME 			 	= zosc.out
+NAME				= zosclib.a
+EXEC 			 	= zosc.out
 
 ### Message Vars
+_NAME	 		= [$(MAG)zosc$(D)]
 _SUCCESS 		= [$(GRN)SUCCESS$(D)]
 _INFO 			= [$(BLU)INFO$(D)]
 _SEP	 			= ===================================================
@@ -31,13 +33,17 @@ INC_PATH		= inc
 BUILD_PATH	= .build
 TEMP_PATH		= .temp
 
-FILES			= main.cpp
-FILES			+= ZoscMessage.cpp
+FILES			= ZoscMessage.cpp
 FILES			+= ZoscBundle.cpp
 FILES			+= debug.cpp
 
+EXEC_FILES			= main.cpp
+
 SRC				= $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS			= $(SRC:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o)
+
+ZOSC_PATH		= $(SRC_PATH)
+ZOSC_ARC		= $(SRC_PATH)/zosclib.a
 
 #==============================================================================#
 #                              COMPILER & FLAGS                                #
@@ -72,18 +78,22 @@ VGDB_ARGS	= --vgdb-error=0 $(VAL_LEAK) $(VAL_SUP) $(VAL_FD)
 
 all: $(NAME)	## Compile
 
-$(NAME): $(BUILD_PATH) $(OBJS)			## Compile
+$(NAME): $(BUILD_PATH) $(OBJS)
+	@echo "$(YEL)Archiving $(MAG)$(NAME)$(YEL)$(D)"
+	$(AR) $(NAME) $(OBJS)
+	@echo "* $(_NAME) archived: $(_SUCCESS) $(YEL)🖔$(D)"
+
+$(EXEC): $(BUILD_PATH) $(OBJS) $(ZOSC_ARC)			## Compile
 	@echo "$(YEL)Compiling $(MAG)$(NAME)$(YEL)$(D)"
-	$(BEAR_CMD) $(CXX) $(CXXFLAGS) -I $(INC_PATH) $(OBJS) -o $(NAME)
+	$(BEAR_CMD) $(CXX) $(CXXFLAGS) $(ZOSC_ARC) $(OBJS) -o $(EXEC)
 	@echo "[$(_SUCCESS) compiling $(MAG)$(NAME)$(D) $(YEL)🖔$(D)]"
 
 exec: $(NAME) $(TEMP_PATH)			## Run
-	@echo "$(YEL)Running $(MAG)$(NAME)$(YEL)$(D)"
-	./$(NAME) $(ARG)
+	@echo "$(YEL)Running $(MAG)$(EXEC)$(YEL)$(D)"
+	./$(EXEC) $(ARG)
 
 debug: CXX = g++
 debug: CXXFLAGS += $(DEBUG_FLAGS) -O0 -D DEBUG
-debug: CXXFLAGS += -D_GLIBCXX_DEBUG
 debug: fclean $(NAME) $(TEMP_PATH)			## Compile w/ debug symbols
 
 -include $(BUILD_PATH)/%.d
