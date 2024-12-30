@@ -1,31 +1,83 @@
 # zosc
 zosc: OSC C++ Lib
+> Zosc 0.1  
+<!-- mtoc-start -->
 
-## TODO
-- [ ] OSC Address Parsing
-- [ ] Messagte Type Handling
-- [ ] OSC Type Tagging
-- [ ] Network Layer Transport (UDP Support)
-- [ ] Bundle Scheduling and Handling
-> void schedule(const ZoscBundle &bundle);
-> void sendScheduledBundles();
-- [ ] Error Handling & Validation
-- [ ] SCheck Serialization/Deserialization Edge Cases
-- [ ] OSC TimeTag Handling
-- [ ] Unit Tests
-- [x] ZoscSender (send over UDP)
-    * Store Adress/port for the recipient
-    * Methods to send Messages & Bundles
-    * UDP Socket management
-- [ ] ZoscReceiver
-    * Listen on a UDP port
-    * Deserialize Messages & Bundles
-    * Process & Handle incoming data
-    * Notify of message reception
+* [**Features** 🚀](#features-)
+  * [**ZoscMessage**  ](#zoscmessage--)
+  * [**ZoscBundle**  ](#zoscbundle--)
+  * [**ZoscReceiver**  ](#zoscreceiver--)
+  * [**ZoscSender**  ](#zoscsender--)
+* [**Usage** 🔧 ](#usage--)
+  * [**Requirements**  ](#requirements--)
+  * [**Building Zosc**  ](#building-zosc--)
+* [References 📖](#references-)
+* [License 🔏](#license-)
 
-## Advances TODOs
-- [ ] OscTypeTagger
-- [ ] OscAddressParser
-- [ ] OscAddressMatcher
-- [ ] OscPacket
-- [ ] OscServer
+<!-- mtoc-end -->
+
+**Zosc** is a C++ library for working with the **Open Sound Control** (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
+
+---
+
+## **Features** 🚀
+
+### **ZoscMessage**  
+- Create and manage OSC messages with address patterns.  
+- Supports multiple argument types:  
+  - `int32_t`  
+  - `float`  
+  - `std::string`  
+  - `std::vector<uint8_t>`  
+  - `uint32_t`  
+- Serialize and deserialize OSC-compliant byte streams.  
+
+### **ZoscBundle**  
+- Nest OSC messages and bundles hierarchically.  
+- Use NTP-compatible TimeTags for precise scheduling.  
+- Serialize and deserialize bundles into OSC formats.  
+
+### **ZoscReceiver**  
+- Listen for incoming OSC messages and bundles on a specified UDP port.  
+- Use callback functions for customized message and bundle processing.  
+- Operates asynchronously using the ASIO library.  
+
+### **ZoscSender**  
+- Send OSC messages and bundles over UDP.  
+- Supports raw OSC-encoded data transmission.  
+- Optimized for low-latency networking.  
+
+---
+
+## **Usage** 🔧 
+
+### **Requirements**  
+- C++17 or later  
+- [ASIO](https://think-async.com/) library (standalone or via Boost)  
+
+### **Building Zosc**  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/PedroZappa/zosc.git
+   cd zosc
+   ```
+2. Build the library:
+```bash
+make
+```
+Include the Zosc headers in your project. Zosc is a header-only library, so no additional build steps are required.
+
+---
+
+## References 📖
+
+- [Open Sound Control](https://opensoundcontrol.org/)
+- [OSC Syntax](https://opensoundcontrol.stanford.edu/spec-1_0.html#introduction)
+- [Open Sound Control Wikipedia](https://en.wikipedia.org/wiki/Open_Sound_Control)
+- [Best Practices for OSC STANFORD](https://opensoundcontrol.stanford.edu/files/osc-best-practices-final.pdf)
+
+___
+
+## License 🔏
+
+This work is published under the terms of <a href="https://github.com/PedroZappa/zosc/blob/main/LICENSE">The Unlicense</a>.
