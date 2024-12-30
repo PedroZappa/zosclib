@@ -7,7 +7,7 @@ BEAR_CMD := $(shell command -v bear >/dev/null 2>&1 && echo "bear --" || echo ""
 SHELL	:= bash --rcfile ~/.bashrc
 
 # Default test values
-MODE			?= release
+MODE			?= 
 DEBUG			?= 0
 IN_PATH		?= $(SRC_PATH)
 ARG				=
@@ -97,10 +97,9 @@ exec: $(NAME) $(TEMP_PATH)			## Run
 	@echo "$(YEL)Running $(MAG)$(EXEC)$(YEL)$(D)"
 	./$(EXEC) $(ARG)
 
-debug: CXX = g++
-debug: CXXFLAGS += $(DEBUG_FLAGS)
-debug: MODE=debug
-debug: fclean $(NAME) $(TEMP_PATH)			## Compile w/ debug symbols
+$(NAME): CXXFLAGS += $(DEBUG_FLAGS)
+debug: fclean $(TEMP_PATH) 			## Compile w/ debug symbols
+	make $(NAME) MODE=debug
 
 -include $(BUILD_PATH)/%.d
 
