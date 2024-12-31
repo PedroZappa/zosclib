@@ -13,7 +13,8 @@
 /// @param port The port to listen for OSC messages on
 ZoscReceiver::ZoscReceiver(uint16_t port)
 	: _port(port),
-	  _socket(_ioContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port)),
+	  _socket(_ioContext,
+			  boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)),
 	  _running(false), _receiveBuffer(1024) {
 	std::cout << "Receiver initialized on port " << _port << std::endl;
 }
@@ -80,10 +81,10 @@ void ZoscReceiver::setBundleCallback(
 /// @brief Begin asynchronous receive
 void ZoscReceiver::receive() {
 	// Create a variable to hold the sender's endpoint
-	asio::ip::udp::endpoint senderEndpoint;
+	boost::asio::ip::udp::endpoint senderEndpoint;
 
 	_socket.async_receive_from(
-		asio::buffer(_receiveBuffer),
+		boost::asio::buffer(_receiveBuffer),
 		senderEndpoint,
 		[this, senderEndpoint](std::error_code ec,
 							   std::size_t bytesReceived) mutable {
@@ -124,5 +125,6 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 			std::cerr << "Failed to process data: " << e.what() << std::endl;
 		}
 	}
-} 
+}
 /** @} */
+

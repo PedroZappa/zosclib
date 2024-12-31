@@ -3,7 +3,7 @@
 
 #include "ZoscBundle.hpp"
 #include "ZoscMessage.hpp"
-#include <asio.hpp>
+#include <boost/asio.hpp>
 #include <functional>
 #include <iostream>
 #include <thread>
@@ -36,8 +36,8 @@ class ZoscReceiver {
 
   private:
 	uint16_t _port;                      // Port to listen on
-	asio::io_context _ioContext;         // ASIO I/O context
-	asio::ip::udp::socket _socket;       // UDP socket for receiving data
+	boost::asio::io_context _ioContext;         // ASIO I/O context
+	boost::asio::ip::udp::socket _socket;       // UDP socket for receiving data
 	std::thread _ioThread;               // Thread for running I/O context
 	bool _running;                       // Flag to track receiver state
 	std::vector<uint8_t> _receiveBuffer; // Buffer for receiving data

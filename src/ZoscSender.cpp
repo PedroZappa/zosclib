@@ -15,13 +15,13 @@
 OscSender::OscSender(const std::string &host, uint16_t port)
 	: _host(host), _port(port), _socket(_ioContext) {
 	// Set up the endpoint to send data to the specified host and port
-	_endpoint =
-		asio::ip::udp::endpoint(asio::ip::address::from_string(host), port);
+	_endpoint = boost::asio::ip::udp::endpoint(
+		boost::asio::ip::address::from_string(host), port);
 
 	// Open the UDP socket
 
 	try {
-		_socket.open(asio::ip::udp::v4());
+		_socket.open(boost::asio::ip::udp::v4());
 		std::cout << "Socket opened successfully for host: " << _host
 				  << " on port: " << _port << std::endl;
 	} catch (const std::exception &e) {
@@ -66,7 +66,8 @@ void OscSender::sendBundle(const ZoscBundle &bundle) {
 void OscSender::sendRaw(const std::vector<uint8_t> &data) {
 	try {
 		// Send data to the endpoint (host and port)
-		std::size_t bytesSent = _socket.send_to(asio::buffer(data), _endpoint);
+		std::size_t bytesSent =
+			_socket.send_to(boost::asio::buffer(data), _endpoint);
 		std::cout << "Sent " << bytesSent << " bytes to "
 				  << _endpoint.address().to_string() << ":" << _endpoint.port()
 				  << std::endl;

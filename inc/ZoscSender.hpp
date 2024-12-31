@@ -26,9 +26,9 @@ class OscSender {
   private:
 	std::string _host;             // Host address to send OSC messages to
 	uint16_t _port;                // Port to send OSC messages to
-	asio::io_context _ioContext;   // I/O context for asynchronous operations
-	asio::ip::udp::socket _socket; // UDP socket for sending data
-	asio::ip::udp::endpoint _endpoint; // Destination endpoint for sending messages
+	boost::asio::io_context _ioContext;   // I/O context for asynchronous operations
+	boost::asio::ip::udp::socket _socket; // UDP socket for sending data
+	boost::asio::ip::udp::endpoint _endpoint; // Destination endpoint for sending messages
 };
 
 #endif // OSC_SENDER_HPP
