@@ -22,6 +22,7 @@ ZoscBundle::ZoscTimeTag::ZoscTimeTag(uint64_t value) : _value(value) {
 /*                                  Getters                                   */
 /* ************************************************************************** */
 
+/// @brief Get the value of the ZoscTimeTag
 uint64_t ZoscBundle::ZoscTimeTag::getValue() const {
 	return (_value);
 }

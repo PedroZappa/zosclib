@@ -2,6 +2,7 @@
  * @defgroup zosc_core Core OSC Components
  * @{
  */
+
 #include "../inc/ZoscMessage.hpp"
 #include "../inc/Zosc.hpp"
 
