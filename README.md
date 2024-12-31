@@ -62,7 +62,7 @@ The full documentation for **zosc** is available online. You can view it by clic
 
 <a href="https://PedroZappa.github.io/zosc/" target="_blank">View Documentation</a>
 
-Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
+> Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
 
 ---
 
