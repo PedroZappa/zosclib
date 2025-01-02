@@ -40,8 +40,12 @@ void ZoscReceiver::start() {
 
 	// Start receiving data
 	receive();
-	// Run the I/O context in a separate thread
-	_ioThread = std::thread([this]() { _ioContext.run(); });
+
+	// Run the I/O context in multiple threads
+	size_t threadCount = std::thread::hardware_concurrency();
+	for (size_t i = 0; i < threadCount; ++i) {
+		_ioThreads.emplace_back([this]() { _ioContext.run(); });
+	}
 
 	std::cout << "Receiver started on port " << _port << std::endl;
 }
@@ -52,10 +56,12 @@ void ZoscReceiver::stop() {
 		return;
 	_running = false;
 
-	// Stop the I/O context and join the thread
 	_ioContext.stop();
-	if (_ioThread.joinable())
-		_ioThread.join();
+	for (auto &thread : _ioThreads) {
+		if (thread.joinable())
+			thread.join();
+	}
+	_ioThreads.clear();
 
 	std::cout << "Receiver stopped" << std::endl;
 }
@@ -80,26 +86,51 @@ void ZoscReceiver::setBundleCallback(
 
 /// @brief Begin asynchronous receive
 void ZoscReceiver::receive() {
-	// Create a variable to hold the sender's endpoint
-	boost::asio::ip::udp::endpoint senderEndpoint;
+	auto receiveBuffer =
+		std::make_shared<std::vector<uint8_t>>(1024); // Unique buffer
+	auto senderEndpoint = std::make_shared<boost::asio::ip::udp::endpoint>();
 
 	_socket.async_receive_from(
-		boost::asio::buffer(_receiveBuffer),
-		senderEndpoint,
-		[this, senderEndpoint](std::error_code ec,
-							   std::size_t bytesReceived) mutable {
+		boost::asio::buffer(*receiveBuffer),
+		*senderEndpoint,
+		[this, receiveBuffer, senderEndpoint](std::error_code ec,
+											  std::size_t bytesReceived) {
 			if (!ec && bytesReceived > 0) {
 				// Process the received data
-				std::vector<uint8_t> data(_receiveBuffer.begin(),
-										  _receiveBuffer.begin() + bytesReceived);
+				std::vector<uint8_t> data(receiveBuffer->begin(),
+										  receiveBuffer->begin() + bytesReceived);
 				processData(data);
-			} else if (ec)
+			} else if (ec) {
 				std::cerr << "Receive error: " << ec.message() << std::endl;
+			}
 
 			if (_running)
 				receive(); // Continue receiving
 		});
 }
+// void ZoscReceiver::receive() {
+// 	// Create a variable to hold the sender's endpoint
+// 	boost::asio::ip::udp::endpoint senderEndpoint;
+//
+// 	_socket.async_receive_from(
+// 		boost::asio::buffer(_receiveBuffer),
+// 		senderEndpoint,
+// 		[this, senderEndpoint](std::error_code ec,
+// 							   std::size_t bytesReceived) mutable {
+// 			if (!ec && bytesReceived > 0) {
+// 				// Process the received data
+// 				std::vector<uint8_t> data(_receiveBuffer.begin(),
+// 										  _receiveBuffer.begin() + bytesReceived);
+// 				processData(data);
+// 			} else if (ec)
+// 				std::cerr << "Receive error: " << ec.message() << std::endl;
+//
+// 			if (_running)
+// 				receive(); // Continue receiving
+// 		});
+// }
+
+std::mutex _callbackMutex;
 
 /// @brief Process received data
 /// @param data The raw data received
@@ -110,6 +141,7 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 			ZoscMessage::deserialize(std::string(data.begin(), data.end()));
 
 		// If successful, invoke the message callback
+		std::lock_guard<std::mutex> lock(_callbackMutex);
 		if (_messageCallback)
 			_messageCallback(message);
 	} catch (...) {
@@ -119,6 +151,7 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 				ZoscBundle::deserialize(std::string(data.begin(), data.end()));
 
 			// If successful, invoke the bundle callback
+			std::lock_guard<std::mutex> lock(_callbackMutex);
 			if (_bundleCallback)
 				_bundleCallback(bundle);
 		} catch (const std::exception &e) {
@@ -127,4 +160,3 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 	}
 }
 /** @} */
-
