@@ -9,13 +9,14 @@
 #include <thread>
 
 /**
-* @brief Class for receiving OSC messages over UDP
-* @details This class encapsulates the logic for receiving OSC messages over UDP.
-* It uses ASIO to handle the I/O operations. It also provides methods to set callbacks for received messages and bundles.
-*
-* @class ZoscReceiver
-* @ingroup OSC Tools
-**/
+ * @brief Class for receiving OSC messages over UDP
+ * @details This class encapsulates the logic for receiving OSC messages over
+ *UDP. It uses ASIO to handle the I/O operations. It also provides methods to
+ *set callbacks for received messages and bundles.
+ *
+ * @class ZoscReceiver
+ * @ingroup OSC Tools
+ **/
 class ZoscReceiver {
   public:
 	// Constructor & Destructor
@@ -35,12 +36,12 @@ class ZoscReceiver {
 	void setBundleCallback(const std::function<void(const ZoscBundle &)> &callback);
 
   private:
-	uint16_t _port;                      // Port to listen on
-	boost::asio::io_context _ioContext;         // ASIO I/O context
-	boost::asio::ip::udp::socket _socket;       // UDP socket for receiving data
-	std::thread _ioThread;               // Thread for running I/O context
-	bool _running;                       // Flag to track receiver state
-	std::vector<uint8_t> _receiveBuffer; // Buffer for receiving data
+	uint16_t _port;                       // Port to listen on
+	boost::asio::io_context _ioContext;   // ASIO I/O context
+	boost::asio::ip::udp::socket _socket; // UDP socket for receiving data
+	std::vector<std::thread> _ioThreads;  // Threads for running I/O context
+	bool _running;                        // Flag to track receiver state
+	std::vector<uint8_t> _receiveBuffer;  // Buffer for receiving data
 
 	// User-defined callbacks
 	std::function<void(const ZoscMessage &)> _messageCallback;
