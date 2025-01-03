@@ -51,11 +51,13 @@ int main(void) {
 
 	// Listen for messages
 	ZoscReceiver receiver(PORT);
-	receiver.setMessageCallback([](const ZoscMessage &msg) {
-		std::cout << "Received message: " BYEL << msg.getAddress() << NC
-				  << std::endl;
+	receiver.setMessageCallback([](const ZoscMessage &msg,
+								   const std::string &senderIP,
+								   uint16_t senderPort) {
+		std::cout << "Received message from " << senderIP << ":" << senderPort
+				  << ": " YEL << msg.getAddress() << std::endl;
 		for (const auto &arg : msg.getArgs())
-			std::cout << "  " << arg << std::endl;
+			std::cout << GRN "  " << arg << NC << std::endl;
 	});
 	while (_listening) {
 		receiver.start();
