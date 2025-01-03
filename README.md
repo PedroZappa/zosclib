@@ -1,5 +1,4 @@
 # zosclib
-> zosclib 0.1-alpha  
 
 ![ZOSCLIB Logo](./img/zosc_logo.png) 
 
