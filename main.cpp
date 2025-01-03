@@ -2,10 +2,10 @@
 /// @brief Main entry point
 /// @Author: Zedro
 
+#include "inc/Zosc.hpp"
 #include "inc/ZoscBundle.hpp"
 #include "inc/ZoscMessage.hpp"
 #include "inc/ZoscSender.hpp"
-#include "inc/Zosc.hpp"
 #include <csignal>
 
 // #define IP "127.0.0.1"
@@ -51,8 +51,13 @@ int main(void) {
 
 	// Listen for messages
 	ZoscReceiver receiver(PORT);
-	receiver.setMessageCallback([](const ZoscMessage &msg) {
-		std::cout << "Received message: " << msg.getAddress() << std::endl;
+	receiver.setMessageCallback([](const ZoscMessage &msg,
+								   const std::string &senderIP,
+								   uint16_t senderPort) {
+		std::cout << "Received message from " << senderIP << ":" << senderPort
+				  << ": " YEL << msg.getAddress() << std::endl;
+		for (const auto &arg : msg.getArgs())
+			std::cout << GRN "  " << arg << NC << std::endl;
 	});
 	while (_listening) {
 		receiver.start();

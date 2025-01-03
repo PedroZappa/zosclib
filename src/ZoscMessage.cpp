@@ -58,9 +58,8 @@ std::string ZoscMessage::serialize() const {
 
 	// Serialize the address
 	oss << _address;
-	// Align memory with '\0' padding
 	size_t padding = ((4 - (_address.size() % 4)) % 4);
-	oss.write("\0\0\0", padding);
+	oss.write("\0\0\0", padding); // Align to a 4-byte boundary
 
 	// Serialize the type tag string
 	oss.put(',');

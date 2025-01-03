@@ -65,16 +65,18 @@ void ZoscReceiver::stop() {
 
 /// @brief Set callback for received messages
 /// @param callback The function to call when a message is received
+/// @details The callback receives the message, sender's IP address, and port
 void ZoscReceiver::setMessageCallback(
-	const std::function<void(const ZoscMessage &)> &callback) {
-	_messageCallback = callback;
+    const std::function<void(const ZoscMessage &, const std::string &, uint16_t)> &callback) {
+    _messageCallback = callback;
 }
 
 /// @brief Set callback for received bundles
 /// @param callback The function to call when a bundle is received
+/// @details The callback receives the bundle, sender's IP address, and port
 void ZoscReceiver::setBundleCallback(
-	const std::function<void(const ZoscBundle &)> &callback) {
-	_bundleCallback = callback;
+    const std::function<void(const ZoscBundle &, const std::string &, uint16_t)> &callback) {
+    _bundleCallback = callback;
 }
 
 /* ************************************************************************** */
@@ -96,6 +98,9 @@ void ZoscReceiver::receive() {
 				fprintf(stderr, "Error: %s\n", ec.message().c_str());
 				return;
 			}
+			// Extract sender's IP address and port
+			_senderAddress = senderEndpoint->address().to_string();
+			_senderPort = senderEndpoint->port();
 #ifdef DEBUG
 			std::cout << "Buffer address: " << receiveBuffer.get()
 					  << ", size: " << bytesReceived << std::endl;
@@ -117,8 +122,6 @@ void ZoscReceiver::receive() {
 		});
 }
 
-std::mutex _callbackMutex;
-
 /// @brief Process received data
 /// @param data The raw data received
 void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
@@ -129,8 +132,9 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 
 		// If successful, invoke the message callback
 		std::lock_guard<std::mutex> lock(_callbackMutex);
+
 		if (_messageCallback)
-			_messageCallback(message);
+			_messageCallback(message, _senderAddress, _senderPort);
 	} catch (...) {
 		// Try to deserialize as a bundle
 		try {
@@ -140,7 +144,7 @@ void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
 			// If successful, invoke the bundle callback
 			std::lock_guard<std::mutex> lock(_callbackMutex);
 			if (_bundleCallback)
-				_bundleCallback(bundle);
+				_bundleCallback(bundle, _senderAddress, _senderPort);
 		} catch (const std::exception &e) {
 			std::cerr << "Failed to process data: " << e.what() << std::endl;
 		}

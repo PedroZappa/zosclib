@@ -30,12 +30,13 @@ class ZoscReceiver {
 	// Stop listening
 	void stop();
 
-	// Set callback for received messages
-	void
-	setMessageCallback(const std::function<void(const ZoscMessage &)> &callback);
-
-	// Set callback for received bundles
-	void setBundleCallback(const std::function<void(const ZoscBundle &)> &callback);
+	// Set callbacks for received messages & bundles
+	void setMessageCallback(
+		const std::function<void(const ZoscMessage &, const std::string &, uint16_t)>
+			&callback);
+	void setBundleCallback(
+		const std::function<void(const ZoscBundle &, const std::string &, uint16_t)>
+			&callback);
 
   private:
 	uint16_t _port;                       // Port to listen on
@@ -43,12 +44,14 @@ class ZoscReceiver {
 	boost::asio::ip::udp::socket _socket; // UDP socket for receiving data
 	std::vector<std::thread> _ioThreads;  // Threads for running I/O context
 	bool _running;                        // Flag to track receiver state
-	// std::vector<uint8_t> _receiveBuffer;  // Buffer for receiving data
-	alignas(8) std::vector<uint8_t> _receiveBuffer;
+	alignas(8) std::vector<uint8_t> _receiveBuffer; // Buffer for receiving data
+	std::string _senderAddress; // Stores the sender's IP address
+	uint16_t _senderPort;       // Stores the sender's port
 
 	// User-defined callbacks
-	std::function<void(const ZoscMessage &)> _messageCallback;
-	std::function<void(const ZoscBundle &)> _bundleCallback;
+	std::mutex _callbackMutex;
+	std::function<void(const ZoscMessage &, const std::string &, uint16_t)> _messageCallback;
+    std::function<void(const ZoscBundle &, const std::string &, uint16_t)> _bundleCallback;
 
 	void receive(); // Internal method to handle receiving data
 	void processData(const std::vector<uint8_t> &data); // Parse incoming data
