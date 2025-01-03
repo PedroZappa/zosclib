@@ -40,7 +40,7 @@ zosclib is a C++ library for working with the Open Sound Control (OSC) protocol.
 
 ### Requirements  
 - C++17 or later  
-- [ASIO](https://think-async.com/) library (standalone or via Boost)  
+- [ASIO](https://think-async.com/) library (via Boost)  
 
 ### Building Zosc  
 1. Clone the repository:  
@@ -60,7 +60,7 @@ ___
 
 The full documentation for **zosclib** is available online. You can view it by clicking the link below:
 
-<a href="https://PedroZappa.github.io/zosc/" target="_blank">View Documentation</a>
+<a href="https://PedroZappa.github.io/zosclib/" target="_blank">View Documentation</a>
 
 > Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
 
@@ -78,4 +78,4 @@ ___
 
 ## License 🔏
 
-This work is published under the terms of <a href="https://github.com/PedroZappa/zosc/blob/main/LICENSE">The Unlicense</a>.
+This work is published under the terms of <a href="https://github.com/PedroZappa/zosclib/blob/main/LICENSE">The Unlicense</a>.

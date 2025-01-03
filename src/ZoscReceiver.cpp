@@ -15,8 +15,7 @@ ZoscReceiver::ZoscReceiver(uint16_t port)
 	: _port(port),
 	  _socket(_ioContext,
 			  boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)),
-	  _running(false), _receiveBuffer(1024) {
-	std::cout << "Receiver initialized on port " << _port << std::endl;
+	  _running(false), _receiveBuffer(BUFFER_SIZE) {
 }
 
 /* ************************************************************************** */
@@ -46,8 +45,6 @@ void ZoscReceiver::start() {
 	for (size_t i = 0; i < threadCount; ++i) {
 		_ioThreads.emplace_back([this]() { _ioContext.run(); });
 	}
-
-	std::cout << "Receiver started on port " << _port << std::endl;
 }
 
 /// @brief Stop the receiver
@@ -87,7 +84,7 @@ void ZoscReceiver::setBundleCallback(
 /// @brief Begin asynchronous receive
 void ZoscReceiver::receive() {
 	auto receiveBuffer =
-		std::make_shared<std::vector<uint8_t>>(2048); // Unique buffer
+		std::make_shared<std::vector<uint8_t>>(BUFFER_SIZE); // Unique buffer
 	auto senderEndpoint = std::make_shared<boost::asio::ip::udp::endpoint>();
 
 	_socket.async_receive_from(
@@ -96,12 +93,13 @@ void ZoscReceiver::receive() {
 		[this, receiveBuffer, senderEndpoint](std::error_code ec,
 											  std::size_t bytesReceived) {
 			if (ec) {
-				std::cerr << "Receive error: " << ec.message() << std::endl;
+				fprintf(stderr, "Error: %s\n", ec.message().c_str());
 				return;
 			}
-
+#ifdef DEBUG
 			std::cout << "Buffer address: " << receiveBuffer.get()
 					  << ", size: " << bytesReceived << std::endl;
+#endif
 			if (bytesReceived > receiveBuffer->size()) {
 				std::cerr << "Buffer overflow detected. Bytes received: "
 						  << bytesReceived

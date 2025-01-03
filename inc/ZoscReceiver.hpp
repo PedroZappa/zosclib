@@ -8,6 +8,8 @@
 #include <iostream>
 #include <thread>
 
+#define BUFFER_SIZE 2048
+
 /**
  * @brief Class for receiving OSC messages over UDP
  * @details This class encapsulates the logic for receiving OSC messages over
