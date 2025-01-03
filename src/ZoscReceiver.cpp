@@ -98,9 +98,12 @@ void ZoscReceiver::receive() {
 				fprintf(stderr, "Error: %s\n", ec.message().c_str());
 				return;
 			}
+<<<<<<< HEAD
 			// Extract sender's IP address and port
 			_senderAddress = senderEndpoint->address().to_string();
 			_senderPort = senderEndpoint->port();
+=======
+>>>>>>> 5abf208 (ZoscMessage.hpp : cleaned up for release v0.2-alpha)
 #ifdef DEBUG
 			std::cout << "Buffer address: " << receiveBuffer.get()
 					  << ", size: " << bytesReceived << std::endl;
