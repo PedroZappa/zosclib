@@ -52,7 +52,7 @@ zosclib is a C++ library for working with the Open Sound Control (OSC) protocol.
 ```bash
 make
 ```
-Include the Zosc headers in your project. Zosclib is a header-only library, so no additional build steps are required.
+Include the zosclib headers in your project. Zosclib is a header-only library, so no additional build steps are required.
 
 ___
 
