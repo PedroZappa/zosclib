@@ -1,9 +1,9 @@
-# zosc
-> zosc 0.1-alpha  
+# zosclib
+> zosclib 0.1-alpha  
 
-![ZOSC Logo](./img/zosc_logo.png) 
+![ZOSCLIB Logo](./img/zosc_logo.png) 
 
-zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
+zosclib is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
 
 ---
 
@@ -45,20 +45,20 @@ zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It
 ### Building Zosc  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/PedroZappa/zosc.git
-   cd zosc
+   git clone https://github.com/PedroZappa/zosclib.git
+   cd zosclib
    ```
 2. Build the library:
 ```bash
 make
 ```
-Include the Zosc headers in your project. Zosc is a header-only library, so no additional build steps are required.
+Include the Zosc headers in your project. Zosclib is a header-only library, so no additional build steps are required.
 
 ___
 
 ## Documentation 📖
 
-The full documentation for **zosc** is available online. You can view it by clicking the link below:
+The full documentation for **zosclib** is available online. You can view it by clicking the link below:
 
 <a href="https://PedroZappa.github.io/zosc/" target="_blank">View Documentation</a>
 
