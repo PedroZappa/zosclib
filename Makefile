@@ -64,6 +64,7 @@ CXXFLAGS	  = -Wall -Wextra -Werror
 CXXFLAGS	  += -Wshadow
 
 DEBUG_FLAGS	= -g -O0 -D DEBUG
+ASAN_FLAGS	= -fsanitize=address,undefined,alignment
 
 INC					= -I $(INC_PATH)
 
@@ -107,6 +108,12 @@ exec: $(NAME) $(EXEC) $(TEST_FILES) $(TEMP_PATH)			## Run
 export CXXFLAGS
 debug: CXXFLAGS += $(DEBUG_FLAGS)
 debug: fclean $(TEMP_PATH) $(NAME) 		## Compile w/ debug symbols
+
+asan: CXXFLAGS += $(ASAN_FLAGS) 
+asan: $(BUILD_PATH) $(ZOSC_ARC) $(OBJS)   ## Compile with Sanitizers
+	@echo "$(YEL)Compiling $(MAG)$(NAME)$(YEL) with Address Sanitizer$(D)"
+	$(CXX) $(CXXFLAGS) $(OBJS) $(INC) $(ZOSC_ARC) -o $(NAME)
+	@echo "[$(_SUCCESS) compiling $(MAG)$(NAME)$(D) with Sanitizers $(YEL)🖔$(D)]"
 
 -include $(BUILD_PATH)/%.d
 
