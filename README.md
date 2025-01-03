@@ -1,7 +1,7 @@
-# zosc
-> zosc 0.1-alpha  
+# zosclib
+> zosclib 0.1-alpha  
 
-![ZOSC Logo](./img/zosc_logo.png) 
+![ZOSCLIB Logo](./img/zosc_logo.png) 
 
 zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It provides tools for creating, sending, receiving, and processing OSC messages and bundles with a simple and intuitive API.
 
@@ -40,19 +40,19 @@ zosc is a C++ library for working with the Open Sound Control (OSC) protocol. It
 
 ### Requirements  
 - C++17 or later  
-- [ASIO](https://think-async.com/) library (standalone or via Boost)  
+- [ASIO](https://think-async.com/) library (via Boost)  
 
 ### Building Zosc  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/PedroZappa/zosc.git
-   cd zosc
+   git clone https://github.com/PedroZappa/zosclib.git
+   cd zosclib
    ```
 2. Build the library:
 ```bash
 make
 ```
-Include the Zosc headers in your project. Zosc is a header-only library, so no additional build steps are required.
+Include the zosclib headers in your project. Zosclib is a header-only library, so no additional build steps are required.
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 The full documentation for **zosc** is available online. You can view it by clicking the link below:
 
-<a href="https://PedroZappa.github.io/zosc/" target="_blank">View Documentation</a>
+<a href="https://PedroZappa.github.io/zosclib/" target="_blank">View Documentation</a>
 
 > Alternatively, you can also generate the documentation locally by running Doxygen and opening the `index.html` file in a browser.
 
@@ -78,4 +78,4 @@ ___
 
 ## License 🔏
 
-This work is published under the terms of <a href="https://github.com/PedroZappa/zosc/blob/main/LICENSE">The Unlicense</a>.
+This work is published under the terms of <a href="https://github.com/PedroZappa/zosclib/blob/main/LICENSE">The Unlicense</a>.
