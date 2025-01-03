@@ -47,6 +47,7 @@ class ZoscReceiver {
 	alignas(8) std::vector<uint8_t> _receiveBuffer;
 
 	// User-defined callbacks
+	std::mutex _callbackMutex;
 	std::function<void(const ZoscMessage &)> _messageCallback;
 	std::function<void(const ZoscBundle &)> _bundleCallback;
 

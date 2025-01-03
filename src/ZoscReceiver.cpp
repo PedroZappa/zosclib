@@ -117,8 +117,6 @@ void ZoscReceiver::receive() {
 		});
 }
 
-std::mutex _callbackMutex;
-
 /// @brief Process received data
 /// @param data The raw data received
 void ZoscReceiver::processData(const std::vector<uint8_t> &data) {
