@@ -41,7 +41,8 @@ class ZoscReceiver {
 	boost::asio::ip::udp::socket _socket; // UDP socket for receiving data
 	std::vector<std::thread> _ioThreads;  // Threads for running I/O context
 	bool _running;                        // Flag to track receiver state
-	std::vector<uint8_t> _receiveBuffer;  // Buffer for receiving data
+	// std::vector<uint8_t> _receiveBuffer;  // Buffer for receiving data
+	alignas(8) std::vector<uint8_t> _receiveBuffer;
 
 	// User-defined callbacks
 	std::function<void(const ZoscMessage &)> _messageCallback;

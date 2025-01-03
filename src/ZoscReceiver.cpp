@@ -87,7 +87,7 @@ void ZoscReceiver::setBundleCallback(
 /// @brief Begin asynchronous receive
 void ZoscReceiver::receive() {
 	auto receiveBuffer =
-		std::make_shared<std::vector<uint8_t>>(1024); // Unique buffer
+		std::make_shared<std::vector<uint8_t>>(2048); // Unique buffer
 	auto senderEndpoint = std::make_shared<boost::asio::ip::udp::endpoint>();
 
 	_socket.async_receive_from(
@@ -95,40 +95,29 @@ void ZoscReceiver::receive() {
 		*senderEndpoint,
 		[this, receiveBuffer, senderEndpoint](std::error_code ec,
 											  std::size_t bytesReceived) {
-			if (!ec && bytesReceived > 0) {
-				// Process the received data
-				std::vector<uint8_t> data(receiveBuffer->begin(),
-										  receiveBuffer->begin() + bytesReceived);
-				processData(data);
-			} else if (ec) {
+			if (ec) {
 				std::cerr << "Receive error: " << ec.message() << std::endl;
+				return;
 			}
+
+			std::cout << "Buffer address: " << receiveBuffer.get()
+					  << ", size: " << bytesReceived << std::endl;
+			if (bytesReceived > receiveBuffer->size()) {
+				std::cerr << "Buffer overflow detected. Bytes received: "
+						  << bytesReceived
+						  << ", buffer size: " << receiveBuffer->size()
+						  << std::endl;
+				return;
+			}
+
+			std::vector<uint8_t> data(receiveBuffer->begin(),
+									  receiveBuffer->begin() + bytesReceived);
+			processData(data);
 
 			if (_running)
 				receive(); // Continue receiving
 		});
 }
-// void ZoscReceiver::receive() {
-// 	// Create a variable to hold the sender's endpoint
-// 	boost::asio::ip::udp::endpoint senderEndpoint;
-//
-// 	_socket.async_receive_from(
-// 		boost::asio::buffer(_receiveBuffer),
-// 		senderEndpoint,
-// 		[this, senderEndpoint](std::error_code ec,
-// 							   std::size_t bytesReceived) mutable {
-// 			if (!ec && bytesReceived > 0) {
-// 				// Process the received data
-// 				std::vector<uint8_t> data(_receiveBuffer.begin(),
-// 										  _receiveBuffer.begin() + bytesReceived);
-// 				processData(data);
-// 			} else if (ec)
-// 				std::cerr << "Receive error: " << ec.message() << std::endl;
-//
-// 			if (_running)
-// 				receive(); // Continue receiving
-// 		});
-// }
 
 std::mutex _callbackMutex;
 
