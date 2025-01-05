@@ -71,6 +71,7 @@ The full documentation for **zosclib** is available online. You can view it by c
 - [OSC Syntax](https://opensoundcontrol.stanford.edu/spec-1_0.html#introduction)
 - [Open Sound Control Wikipedia](https://en.wikipedia.org/wiki/Open_Sound_Control)
 - [Best Practices for OSC STANFORD](https://opensoundcontrol.stanford.edu/files/osc-best-practices-final.pdf)
+- [OSCQuery Proposal](https://github.com/Vidvox/OSCQueryProposal)
 - [mhroth/tinyosc](https://github.com/mhroth/tinyosc)
 
 ___
