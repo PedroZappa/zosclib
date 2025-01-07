@@ -60,7 +60,7 @@ ZOSC_ARC		= zosclib.a
 #==============================================================================#
 
 CXX					= g++
-CXXFLAGS	  = -Wall -Wextra -Werror
+CXXFLAGS	  = -Wall -Wextra -Werror -std=c++17
 CXXFLAGS	  += -Wshadow
 
 DEBUG_FLAGS	= -g -O0 -D DEBUG
