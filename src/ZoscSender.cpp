@@ -4,6 +4,7 @@
  */
 
 #include "../inc/ZoscSender.hpp"
+#include <boost/asio/ip/address.hpp>
 
 /* ************************************************************************** */
 /*                                Constructors                                */
@@ -16,10 +17,9 @@ OscSender::OscSender(const std::string &host, uint16_t port)
 	: _host(host), _port(port), _socket(_ioContext) {
 	// Set up the endpoint to send data to the specified host and port
 	_endpoint = boost::asio::ip::udp::endpoint(
-		boost::asio::ip::address::from_string(host), port);
+		boost::asio::ip::make_address(host), port);
 
 	// Open the UDP socket
-
 	try {
 		_socket.open(boost::asio::ip::udp::v4());
 		std::cout << "Socket opened successfully for host: " << _host
